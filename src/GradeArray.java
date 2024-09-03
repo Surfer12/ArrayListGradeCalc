@@ -1,8 +1,9 @@
+// src/GradeArray.java
 
-/*2. Enter student grades: For each student, prompt the user to enter their grades (e.g., for multiple assignments or tests) and store them in another array.
- Use InputValidator.java */
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class GradeArray {
-
     public static void createStudentGradesArray() {
         ArrayList<Integer> studentGrades = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
@@ -16,8 +17,3 @@ public class GradeArray {
         System.out.println("Student grades: " + studentGrades);
     }
 }
-
-
-
-
-

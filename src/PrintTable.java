@@ -1,12 +1,13 @@
+// src/PrintTable.java
 public class PrintTable {
-    // Print a neatly formatted table showing each student's name, their individual grades, and their average grade.
-    public static void printTable(double[] average) {
+    public static void printTable(String[] studentNames, int[][] studentGrades, double[] studentAverages) {
         System.out.println("Student Name\t\tGrades\t\tAverage Grade");
-        for (int i = 0; i < Student.getNumberOfStudents(); i++) {
-        System.out.print(Student.getNames()[i] + "\t\t");
-        for (int j = 0; j < Student.getNumberOfGrades(); j++) {
-            System.out.print(Student.getGrades()[i][j] + " ");
+        for (int i = 0; i < studentNames.length; i++) {
+            System.out.print(studentNames[i] + "\t\t");
+            for (int j = 0; j < studentGrades[i].length; j++) {
+                System.out.print(studentGrades[i][j] + " ");
+            }
+            System.out.println("\t\t" + studentAverages[i]);
         }
-        System.out.println("\t\t" + average[i]);
     }
 }
