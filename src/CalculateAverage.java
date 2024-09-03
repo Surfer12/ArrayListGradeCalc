@@ -1,9 +1,10 @@
-/*Calculate averages: Calculate the average grade for each student and store the averages in a third array.
-4. Display results: Print a neatly formatted table showing each student's name, their individual grades, and their average grade.
-5. Bonus: Calculate and display the class average.*/
-
 public class CalculateAverage {
     public static void calculateAverage() {
+        // Create a two-dimensional array to store the grades for each student.
+        int[][] studentGrades = new int[3][3]; // Placeholder initialization
+        double[] studentAverages = new double[studentGrades.length];
+        double classAverage = 0.0;
+
         // Calculate the average grade for each student and store the averages in a third array.
         for (int i = 0; i < studentGrades.length; i++) {
             int sum = 0;
@@ -12,11 +13,5 @@ public class CalculateAverage {
             }
             studentAverages[i] = (double) sum / studentGrades[i].length;
         }
-
-        double sum = 0;
-        for (int i = 0; i < studentAverages.length; i++) {
-            sum += studentAverages[i];
-        }
-        classAverage = sum / studentAverages.length;
     }
 }
