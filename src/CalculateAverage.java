@@ -3,15 +3,20 @@
 5. Bonus: Calculate and display the class average.*/
 
 public class CalculateAverage {
-    public static void calculateAverage(){
+    public static void calculateAverage() {
         // Calculate the average grade for each student and store the averages in a third array.
-        double[] average = new double[Student.getNumberOfStudents()];
-        for (int i = 0; i < Student.getNumberOfStudents(); i++) {
-            double sum = 0;
-            for (int j = 0; j < Student.getNumberOfGrades(); j++) {
-                sum += Student.getGrades()[i][j];
+        for (int i = 0; i < studentGrades.length; i++) {
+            int sum = 0;
+            for (int j = 0; j < studentGrades[i].length; j++) {
+                sum += studentGrades[i][j];
             }
-            average[i] = sum / Student.getNumberOfGrades();
+            studentAverages[i] = (double) sum / studentGrades[i].length;
         }
+
+        double sum = 0;
+        for (int i = 0; i < studentAverages.length; i++) {
+            sum += studentAverages[i];
+        }
+        classAverage = sum / studentAverages.length;
     }
 }

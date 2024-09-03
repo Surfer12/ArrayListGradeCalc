@@ -1,77 +1,42 @@
 // src/GradeBook.java
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GradeBook {
-    private String[] studentNames;
-    private int[][] studentGrades;
-    private double[] studentAverages;
-    private double classAverage;
-    private Scanner scanner;
-
-    public GradeBook() {
-        scanner = new Scanner(System.in);
-    }
+    private ArrayList<Student> students = new ArrayList<>();
 
     public void getStudentDetails() {
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the number of students: ");
         int numStudents = Integer.parseInt(scanner.nextLine());
-        studentNames = new String[numStudents];
-        studentGrades = new int[numStudents][];
-        studentAverages = new double[numStudents];
-
         for (int i = 0; i < numStudents; i++) {
-            System.out.print("Enter the name of student " + (i + 1) + ": ");
-            studentNames[i] = scanner.nextLine();
+            String name = InputReaders.getStudentName(scanner);
+            // Assuming other details are also read here
+            students.add(new Student(name, 0, "", 0, "", false, "", "", new String[]{}, 0, 0, 0, 0, 0));
         }
     }
 
     public void getGrades() {
-        for (int i = 0; i < studentGrades.length; i++) {
-            System.out.print("Enter the number of grades for " + studentNames[i] + ": ");
-            int numGrades = Integer.parseInt(scanner.nextLine());
-            studentGrades[i] = new int[numGrades];
-
-            for (int j = 0; j < numGrades; j++) {
-                System.out.print("Enter grade " + (j + 1) + ": ");
-                studentGrades[i][j] = Integer.parseInt(scanner.nextLine());
-            }
+        Scanner scanner = new Scanner(System.in);
+        for (Student student : students) {
+            System.out.println("Enter grades for " + student.getName() + ":");
+            InputReaders.readAssignmentScores(scanner, student);
         }
     }
 
     public void calculateAverages() {
-        for (int i = 0; i < studentGrades.length; i++) {
-            int sum = 0;
-            for (int j = 0; j < studentGrades[i].length; j++) {
-                sum += studentGrades[i][j];
-            }
-            studentAverages[i] = (double) sum / studentGrades[i].length;
+        GradeCalculator gradeCalculator = new GradeCalculator();
+        for (Student student : students) {
+            double average = gradeCalculator.calculateAverage(student);
+            student.setAverage(average);
         }
-
-        double sum = 0;
-        for (int i = 0; i < studentAverages.length; i++) {
-            sum += studentAverages[i];
-        }
-        classAverage = sum / studentAverages.length;
     }
 
     public void displayResults() {
-        System.out.println("------------------------------");
-        System.out.println("| Student | Grades | Avg |");
-        System.out.println("------------------------------");
-
-        for (int i = 0; i < studentNames.length; i++) {
-            System.out.print("| " + studentNames[i] + " | ");
-            for (int j = 0; j < studentGrades[i].length; j++) {
-                System.out.print(studentGrades[i][j]);
-                if (j < studentGrades[i].length - 1) {
-                    System.out.print(", ");
-                }
-            }
-            System.out.println(" | " + studentAverages[i] + " |");
+        for (Student student : students) {
+            char grade = GradeCalculator.determineFinalGrade(student.getAverage());
+            ResultDisplayer.displayResults(student.getName(), student.getAverage(), grade);
         }
-
-        System.out.println("------------------------------");
-        System.out.println("Class Average: " + classAverage);
     }
 }
