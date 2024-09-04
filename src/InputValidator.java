@@ -1,16 +1,9 @@
+// InputValidator.java
 public class InputValidator {
     private static final int MIN_SCORE = 0;
     private static final int MAX_SCORE = 100;
 
     public static boolean isValidScore(String input) {
-        if (input.trim().isEmpty()) {
-            System.out.println("Invalid input. Please enter a score.");
-            return false;
-        }
-        if (input.matches(".*[!@#$%^&*(),.?\":{}|<>a-zA-Z].*")) {
-            System.out.println("Invalid input. Score cannot contain special characters.");
-            return false;
-        }
         try {
             int score = Integer.parseInt(input);
             if (score < MIN_SCORE || score > MAX_SCORE) {
@@ -32,13 +25,6 @@ public class InputValidator {
         if (input.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
             System.out.println("Invalid input. Name cannot contain special characters.");
             return false;
-        }
-        try {
-            Double.parseDouble(input);
-            System.out.println("Invalid input. Name cannot be a number.");
-            return false;
-        } catch (NumberFormatException e) {
-            System.out.println("Valid name entry.");
         }
         return true;
     }
