@@ -1,3 +1,4 @@
+
 // Student.java
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +17,16 @@ public class Student {
         grades.add(grade);
     }
 
-    public void calculateAverage() {
-        average = GradeBookUtils.calculateAverage(grades);
-    }
-
     public String getName() {
         return name;
     }
 
     public double getAverage() {
         return average;
+    }
+
+    public void setAverage(double average) {
+        this.average = average;
     }
 
     public String getGradesAsString() {

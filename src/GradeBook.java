@@ -1,3 +1,4 @@
+
 // GradeBook.java
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +7,12 @@ import java.util.Scanner;
 public class GradeBook {
     private List<Student> students;
     private Scanner scanner;
+    private GradeCalculator gradeCalculator;
 
     public GradeBook() {
         students = new ArrayList<>();
         scanner = new Scanner(System.in);
+        gradeCalculator = new GradeCalculator();
     }
 
     public void run() {
@@ -24,46 +27,32 @@ public class GradeBook {
         int numStudents = getValidIntInput();
 
         for (int i = 0; i < numStudents; i++) {
-            String name;
-            do {
-                System.out.print("Enter the name of student " + (i + 1) + ": ");
-                name = scanner.nextLine();
-            } while (!InputValidator.isValidName(name));
+            String name = InputReaders.getStudentName(scanner);
             students.add(new Student(name));
         }
     }
 
     private void enterStudentGrades() {
         for (Student student : students) {
-            System.out.print("Enter the number of grades for " + student.getName() + ": ");
-            int numGrades = getValidIntInput();
-
-            for (int i = 0; i < numGrades; i++) {
-                int grade;
-                do {
-                    System.out.print("Enter grade " + (i + 1) + ": ");
-                    String input = scanner.nextLine();
-                    grade = InputValidator.isValidScore(input) ? Integer.parseInt(input) : -1;
-                } while (grade == -1);
-                student.addGrade(grade);
-            }
+            System.out.println("Entering grades for " + student.getName() + ":");
+            InputReaders.readAssignmentScores(scanner, student);
         }
     }
 
     private int getValidIntInput() {
         while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid number.");
+            String input = scanner.nextLine();
+            if (InputValidator.isValidScore(input)) {
+                return Integer.parseInt(input);
             }
+            System.out.println("Invalid input. Please enter a valid number.");
         }
     }
 
-
     private void calculateAverages() {
         for (Student student : students) {
-            student.calculateAverage();
+            double average = gradeCalculator.calculateAverage(student);
+            student.setAverage(average);
         }
     }
 
