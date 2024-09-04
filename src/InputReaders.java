@@ -29,7 +29,7 @@ public class InputReaders {
                 break;
             }
             if (InputValidator.isValidScore(input)) {
-                student.addAssignmentScore(Integer.parseInt(input));
+                student.addGrade(Integer.parseInt(input));
                 System.out.println("Valid score entry recorded.");
                 System.out.println("Total score: " + student.getTotalScore());
                 System.out.println("Number of assignments: " + student.getNumAssignments());
